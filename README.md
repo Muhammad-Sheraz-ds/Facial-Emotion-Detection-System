@@ -1,260 +1,189 @@
-Here is a **comprehensive README.md** for your project, including all necessary setup steps, dependency installation, Docker commands, and usage instructions.
 
----
-
-# **Emotion Detection Using CNN and FER-2013 Dataset**
+# **EmotionAI: Facial Emotion Detection System**
 
 ## **Overview**
-This project detects human emotions from facial images and real-time video using CNNs. It includes:
-1. **Backend**: A FastAPI server for image-based emotion detection.
-2. **Frontend**: A React web application for user interaction.
-3. **Video Prediction**: A real-time video emotion detection script.
+**Facial Emotion Detection System** is an open-source project designed to identify human emotions from images and real-time video streams using advanced Convolutional Neural Networks (CNNs). The project is modular, containerized using Docker, and made accessible for global use.
 
 ---
 
-## **Business Problem**
-Emotion detection is a vital component in areas like:
-- **Human-Computer Interaction**: Enhancing user experience.
-- **Healthcare**: Providing mental health insights.
-- **Marketing**: Understanding customer emotions.
-- **Security**: Identifying unusual behavior.
+## **Features**
+1. **Backend**: A RESTful API built with **FastAPI** for image-based emotion detection.
+2. **Frontend**: A static web interface for uploading images and viewing predictions.
+3. **Real-Time Video Detection**: Real-time emotion detection from video streams using **OpenCV**.
+4. **Dockerized Deployment**: Pre-built Docker containers for easy local and remote usage.
 
 ---
 
 ## **Folder Structure**
 ```plaintext
 Emotion-Detection-Using-CNN-and-FER-2013-Dataset/
-├── backend/                      # FastAPI backend
-│   ├── main.py                   # API implementation
-│   ├── requirements.txt          # Backend dependencies
-│   ├── weights/                  # Pretrained model weights
+├── backend/                      # Backend service
+│   ├── main.py                   # FastAPI implementation
+│   ├── requirements.txt          # Dependencies
+│   ├── weights/                  # Pretrained model weights (not in repo)
 │   │   └── ResNet50_final_weights.weights.h5
 │   └── Dockerfile                # Dockerfile for backend
-├── frontend/                     # React frontend
-│   ├── public/                   # Public assets
-│   ├── src/                      # React source files
-│   ├── package.json              # Frontend dependencies
-│   ├── Dockerfile                # Dockerfile for frontend
-│   └── README.md                 # Frontend-specific README
-├── video_prediction/             # Video emotion prediction module
-│   ├── video_emotion_detector.py # Real-time video emotion detection
+├── frontend/                     # Frontend service
+│   ├── index.html                # Main HTML file
+│   ├── app.css                   # Styling
+│   ├── app.js                    # Frontend logic
+│   └── Dockerfile                # Dockerfile for frontend
+├── video_prediction/             # Real-time video prediction
+│   ├── video_emotion_detector.py # Video detection script
 │   ├── haarcascade_frontalface_default.xml # Haar cascade file
-│   ├── requirements.txt          # Dependencies for video processing
-│   ├── Dockerfile                # Dockerfile for video prediction
-│   └── README.md                 # Video-specific README
+│   ├── requirements.txt          # Dependencies
+│   └── Dockerfile                # Dockerfile for video service
 ├── docker-compose.yml            # Docker Compose configuration
-└── README.md                     # Comprehensive project documentation
+└── README.md                     # Comprehensive documentation
 ```
 
 ---
 
-## **Setup Instructions**
+## **How to Use**
 
-### **1. Clone the Repository**
+### **Open-Source Docker Containers**
+This project is containerized and available as pre-built Docker images for global use. Follow these steps to pull and run the containers:
+
+#### **1. Pull the Docker Images**
+Run the following commands:
 ```bash
-git clone https://github.com/Muhammad-Sheraz-ds/Emotion-Detection-Using-CNN-and-FER-2013-Dataset.git
+docker pull your-dockerhub-username/emotion-detection-backend
+docker pull your-dockerhub-username/emotion-detection-frontend
+docker pull your-dockerhub-username/emotion-detection-video
+```
+
+#### **2. Run the Containers**
+
+1. **Backend**:
+   ```bash
+   docker run -d -p 8000:8000 your-dockerhub-username/emotion-detection-backend
+   ```
+   - Accessible at: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+2. **Frontend**:
+   ```bash
+   docker run -d -p 3000:3000 your-dockerhub-username/emotion-detection-frontend
+   ```
+   - Accessible at: [http://localhost:3000](http://localhost:3000)
+
+3. **Video Prediction**:
+   ```bash
+   docker run -it --rm your-dockerhub-username/emotion-detection-video
+   ```
+
+---
+
+### **Local Setup (Without Docker)**
+
+#### **1. Clone the Repository**
+```bash
+git clone git@github.com:Muhammad-Sheraz-ds/Emotion-Detection-Using-CNN-and-FER-2013-Dataset.git
 cd Emotion-Detection-Using-CNN-and-FER-2013-Dataset
 ```
 
----
+#### **2. Install Dependencies**
 
-## **Installing Dependencies**
-Follow these steps for each module:
+**Backend**:
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cd ..
+```
 
-### **1. Backend**
-1. Navigate to the backend directory:
+**Frontend**:
+No installation required. Open `frontend/index.html` in your browser.
+
+**Video Prediction**:
+```bash
+cd video_prediction
+pip install -r requirements.txt
+cd ..
+```
+
+#### **3. Run the Application**
+1. **Start Backend**:
    ```bash
    cd backend
-   ```
-2. Create a virtual environment (optional but recommended):
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Navigate back to the root directory:
-   ```bash
-   cd ..
-   ```
-
-### **2. Frontend**
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-2. Install Node.js dependencies:
-   ```bash
-   npm install
-   ```
-3. Navigate back to the root directory:
-   ```bash
-   cd ..
-   ```
-
-### **3. Video Prediction**
-1. Navigate to the video prediction directory:
-   ```bash
-   cd video_prediction
-   ```
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Navigate back to the root directory:
-   ```bash
-   cd ..
-   ```
-
----
-
-## **Running the Project**
-
-### **Option 1: Using Docker Compose**
-The easiest way to run the project is by using Docker Compose.
-
-1. **Build the Docker Images**:
-   ```bash
-   docker-compose build
-   ```
-2. **Start the Containers**:
-   ```bash
-   docker-compose up
-   ```
-3. **Access the Application**:
-   - **Frontend**: [http://localhost:3000](http://localhost:3000)
-   - **Backend**: [http://localhost:8000/docs](http://localhost:8000/docs)
-   - **Video Prediction**: The script will run in its container and process real-time video input.
-
----
-
-### **Option 2: Running Locally**
-
-#### **1. Start the Backend**
-1. Navigate to the `backend` directory:
-   ```bash
-   cd backend
-   ```
-2. Run the FastAPI server:
-   ```bash
    uvicorn main:app --reload
+   cd ..
    ```
 
-#### **2. Start the Frontend**
-1. Navigate to the `frontend` directory:
-   ```bash
-   cd frontend
-   ```
-2. Start the React development server:
-   ```bash
-   npm start
-   ```
-
-#### **3. Start the Video Prediction**
-1. Navigate to the `video_prediction` directory:
+2. **Run Video Prediction**:
    ```bash
    cd video_prediction
-   ```
-2. Run the video emotion detection script:
-   ```bash
    python video_emotion_detector.py
    ```
 
+3. Open the frontend `index.html` in your browser.
+
 ---
 
-## **Docker Deployment Details**
+## **Accessing the Model**
 
-### **1. Backend Dockerfile**
-```dockerfile
-# Backend Dockerfile
-FROM python:3.9-slim
+### **Backend API**
+The backend is deployed as a RESTful API and can be accessed via Swagger UI:
+- [http://localhost:8000/docs](http://localhost:8000/docs)
 
-WORKDIR /app
+#### **Endpoint: `/predict-image/`**
+- **Method**: POST
+- **Description**: Predict emotion from an uploaded image.
+- **Input**: An image file (`multipart/form-data`).
+- **Output**: JSON response with the detected emotion.
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+Example cURL Command:
+```bash
+curl -X POST "http://localhost:8000/predict-image/" \
+-H "accept: application/json" \
+-H "Content-Type: multipart/form-data" \
+-F "file=@path/to/image.jpg"
 ```
 
-### **2. Frontend Dockerfile**
-```dockerfile
-# Frontend Dockerfile
-FROM node:16-alpine
-
-WORKDIR /app
-
-COPY package.json package-lock.json ./
-RUN npm install
-
-COPY . .
-
-CMD ["npm", "start"]
+**Response**:
+```json
+{
+  "emotion": "Happy"
+}
 ```
 
-### **3. Video Prediction Dockerfile**
-```dockerfile
-# Video Prediction Dockerfile
-FROM python:3.9-slim
+### **Frontend**
+- Open the frontend in your browser ([http://localhost:3000](http://localhost:3000)).
+- Upload an image and view the predicted emotion.
 
-WORKDIR /app
-
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY . .
-
-CMD ["python", "video_emotion_detector.py"]
+### **Real-Time Video Prediction**
+Run the video prediction container:
+```bash
+docker-compose up video_prediction
 ```
 
-### **4. Docker Compose File**
-```yaml
-version: "3.8"
+---
 
-services:
-  backend:
-    build:
-      context: ./backend
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/app
-      - ./backend/weights:/app/weights
+## **Model Weights**
+The pretrained model weights are **not included** in the repository due to size limitations. To use this project:
+1. Download the weights from the provided [Google Drive link](#).
+2. Place the downloaded `ResNet50_final_weights.weights.h5` file in the `backend/weights/` directory.
 
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-
-  video:
-    build:
-      context: ./video_prediction
-    volumes:
-      - ./video_prediction:/app
-      - ./backend/weights:/app/weights
+```plaintext
+Emotion-Detection-Using-CNN-and-FER-2013-Dataset/
+├── backend/
+│   ├── weights/
+│   │   └── ResNet50_final_weights.weights.h5
 ```
 
 ---
 
 ## **Testing the Application**
-
-1. Use **Swagger UI** to test the backend: [http://localhost:8000/docs](http://localhost:8000/docs)
-2. Use the React UI to upload images and view predictions.
-3. Run the video module to detect emotions in real-time.
+1. Use **Swagger UI** to test backend endpoints ([http://localhost:8000/docs](http://localhost:8000/docs)).
+2. Verify the frontend by uploading images and viewing predictions.
+3. Test real-time video emotion detection by running the video module.
 
 ---
 
 ## **Future Enhancements**
-- Add batch processing support in the backend.
-- Optimize frontend for mobile responsiveness.
-- Enable cloud deployment with Docker images.
+- Cloud deployment for global accessibility.
+- GPU acceleration for real-time video prediction.
+- Improved frontend with mobile responsiveness.
 
 ---
 
@@ -263,4 +192,4 @@ This project is licensed under the MIT License.
 
 ---
 
-Let me know if you need further modifications! 😊
+Let me know if this aligns with your requirements! 😊

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   backend:
@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./backend/weights:/app/weights
+      - ./backend:/app
     container_name: emotion_backend
 
   frontend:
@@ -20,7 +20,6 @@ services:
   video_prediction:
     build:
       context: ./video_prediction
-    container_name: emotion_video_prediction
     volumes:
       - ./video_prediction:/app
-    command: python video_emotion_detector.py
+    container_name: emotion_video_prediction

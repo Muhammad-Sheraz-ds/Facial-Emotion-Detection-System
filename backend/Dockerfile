@@ -1,17 +1,20 @@
-# Use a lightweight Python image
-FROM python:3.10-slim
+# Use Python 3.9 as the base image
+FROM python:3.9-slim
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the backend code
+# Copy the application code
 COPY . .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy the pre-downloaded dependencies
+COPY ./packages /tmp/packages
+
+# Install the dependencies
+RUN pip install --no-cache-dir /tmp/packages/*
 
 # Expose the backend port
 EXPOSE 8000
 
-# Command to run the backend server
+# Command to run the FastAPI app
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
