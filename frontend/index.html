@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg p-4" style="width: 500px; height: 650px; border-radius: 15px;">
+            <div class="card-body text-center">
+                <h1 class="card-title mb-4">Emotion Detection</h1>
+                <p class="card-text mb-4">Upload an image to detect the emotion!</p>
+                <form id="uploadForm">
+                    <div class="mb-3">
+                        <input type="file" id="imageInput" class="form-control" accept="image/*" required>
+                    </div>
+                    <div class="image-preview-container mb-3">
+                        <img id="previewImage" src="" alt="Image Preview" class="image-preview">
+                    </div>
+                    <button id="predictButton" type="submit" class="btn btn-primary btn-lg w-100" disabled>Predict Emotion</button>
+                </form>
+                <div id="result" class="mt-4 text-success" style="font-weight: bold;">
+                    <!-- Emotion prediction result will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>

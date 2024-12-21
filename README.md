@@ -1,62 +1,266 @@
-# Emotion Detection Using CNN and FER-2013 Dataset
+Here is a **comprehensive README.md** for your project, including all necessary setup steps, dependency installation, Docker commands, and usage instructions.
 
-## Overview
+---
 
-This project focuses on detecting emotions from facial images using Convolutional Neural Networks (CNNs). The goal was to create a robust emotion detection model by addressing class imbalance in the FER-2013 dataset and employing advanced CNN architectures such as VGG16 and ResNet50v2. This README will cover the business problem, the problem statement, the solution approach, and key learnings from the project.
+# **Emotion Detection Using CNN and FER-2013 Dataset**
 
-## Business Problem
+## **Overview**
+This project detects human emotions from facial images and real-time video using CNNs. It includes:
+1. **Backend**: A FastAPI server for image-based emotion detection.
+2. **Frontend**: A React web application for user interaction.
+3. **Video Prediction**: A real-time video emotion detection script.
 
-Emotion detection has significant applications in various fields such as human-computer interaction, healthcare, marketing, and security. Accurate emotion detection can enhance user experiences, provide better mental health assessments, and improve security measures by detecting unusual emotional states.
+---
 
-## Problem Statement
+## **Business Problem**
+Emotion detection is a vital component in areas like:
+- **Human-Computer Interaction**: Enhancing user experience.
+- **Healthcare**: Providing mental health insights.
+- **Marketing**: Understanding customer emotions.
+- **Security**: Identifying unusual behavior.
 
-The objective of this project was to develop an end-to-end solution for detecting emotions from facial images using the FER-2013 dataset. The key challenges included:
+---
 
-- Addressing class imbalance in the dataset
-- Improving model robustness and accuracy
-- Leveraging transfer learning for enhanced performance
+## **Folder Structure**
+```plaintext
+Emotion-Detection-Using-CNN-and-FER-2013-Dataset/
+├── backend/                      # FastAPI backend
+│   ├── main.py                   # API implementation
+│   ├── requirements.txt          # Backend dependencies
+│   ├── weights/                  # Pretrained model weights
+│   │   └── ResNet50_final_weights.weights.h5
+│   └── Dockerfile                # Dockerfile for backend
+├── frontend/                     # React frontend
+│   ├── public/                   # Public assets
+│   ├── src/                      # React source files
+│   ├── package.json              # Frontend dependencies
+│   ├── Dockerfile                # Dockerfile for frontend
+│   └── README.md                 # Frontend-specific README
+├── video_prediction/             # Video emotion prediction module
+│   ├── video_emotion_detector.py # Real-time video emotion detection
+│   ├── haarcascade_frontalface_default.xml # Haar cascade file
+│   ├── requirements.txt          # Dependencies for video processing
+│   ├── Dockerfile                # Dockerfile for video prediction
+│   └── README.md                 # Video-specific README
+├── docker-compose.yml            # Docker Compose configuration
+└── README.md                     # Comprehensive project documentation
+```
 
-## Solution Approach
+---
 
-### Data Preprocessing
+## **Setup Instructions**
 
-1. **Handling Class Imbalance**:
-    - Applied data augmentation techniques to generate new training samples by making slight modifications to existing images, such as flipping, rotating, and adjusting brightness. This helped in balancing the dataset and improving the model's robustness.
+### **1. Clone the Repository**
+```bash
+git clone https://github.com/Muhammad-Sheraz-ds/Emotion-Detection-Using-CNN-and-FER-2013-Dataset.git
+cd Emotion-Detection-Using-CNN-and-FER-2013-Dataset
+```
 
-### Model Development
+---
 
-1. **Initial Model**:
-    - Started with a simple CNN architecture, but the results were not satisfactory due to class imbalance and limited data diversity.
+## **Installing Dependencies**
+Follow these steps for each module:
 
-2. **Advanced Models**:
-    - Designed and iterated on custom CNN models, including advanced architectures such as VGG16 and ResNet50v2, to optimize performance.
+### **1. Backend**
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Create a virtual environment (optional but recommended):
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Navigate back to the root directory:
+   ```bash
+   cd ..
+   ```
 
-3. **Transfer Learning**:
-    - Leveraged pre-trained models like VGG16 and ResNet. Fine-tuning these models for the emotion detection task significantly improved the accuracy and performance of the model.
+### **2. Frontend**
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install Node.js dependencies:
+   ```bash
+   npm install
+   ```
+3. Navigate back to the root directory:
+   ```bash
+   cd ..
+   ```
 
-## Key Learnings
+### **3. Video Prediction**
+1. Navigate to the video prediction directory:
+   ```bash
+   cd video_prediction
+   ```
+2. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Navigate back to the root directory:
+   ```bash
+   cd ..
+   ```
 
-- **Handling Data Imbalance**:
-    - Understood the importance of addressing data imbalance and how data augmentation can be a powerful technique to enhance the diversity of training data.
+---
 
-- **Transfer Learning**:
-    - Gained hands-on experience with transfer learning and how pre-trained models can be adapted to new tasks, saving training time and boosting model performance.
+## **Running the Project**
 
-## Technologies Used
+### **Option 1: Using Docker Compose**
+The easiest way to run the project is by using Docker Compose.
 
-- **Python**
-- **TensorFlow**
-- **Keras**
-- **OpenCV**
+1. **Build the Docker Images**:
+   ```bash
+   docker-compose build
+   ```
+2. **Start the Containers**:
+   ```bash
+   docker-compose up
+   ```
+3. **Access the Application**:
+   - **Frontend**: [http://localhost:3000](http://localhost:3000)
+   - **Backend**: [http://localhost:8000/docs](http://localhost:8000/docs)
+   - **Video Prediction**: The script will run in its container and process real-time video input.
 
-## Results and Performance
+---
 
-- The final model achieved improved accuracy and robustness in detecting emotions from facial images.
-- Employed advanced CNN architectures and transfer learning to optimize model performance.
+### **Option 2: Running Locally**
 
+#### **1. Start the Backend**
+1. Navigate to the `backend` directory:
+   ```bash
+   cd backend
+   ```
+2. Run the FastAPI server:
+   ```bash
+   uvicorn main:app --reload
+   ```
 
+#### **2. Start the Frontend**
+1. Navigate to the `frontend` directory:
+   ```bash
+   cd frontend
+   ```
+2. Start the React development server:
+   ```bash
+   npm start
+   ```
 
-## Conclusion
+#### **3. Start the Video Prediction**
+1. Navigate to the `video_prediction` directory:
+   ```bash
+   cd video_prediction
+   ```
+2. Run the video emotion detection script:
+   ```bash
+   python video_emotion_detector.py
+   ```
 
-This project provided valuable insights into handling class imbalance, data augmentation, and transfer learning in the context of emotion detection. The techniques and models developed can be applied to other similar image classification tasks, demonstrating the versatility and power of CNNs and transfer learning.
+---
 
+## **Docker Deployment Details**
+
+### **1. Backend Dockerfile**
+```dockerfile
+# Backend Dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+### **2. Frontend Dockerfile**
+```dockerfile
+# Frontend Dockerfile
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "start"]
+```
+
+### **3. Video Prediction Dockerfile**
+```dockerfile
+# Video Prediction Dockerfile
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["python", "video_emotion_detector.py"]
+```
+
+### **4. Docker Compose File**
+```yaml
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./backend/weights:/app/weights
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+
+  video:
+    build:
+      context: ./video_prediction
+    volumes:
+      - ./video_prediction:/app
+      - ./backend/weights:/app/weights
+```
+
+---
+
+## **Testing the Application**
+
+1. Use **Swagger UI** to test the backend: [http://localhost:8000/docs](http://localhost:8000/docs)
+2. Use the React UI to upload images and view predictions.
+3. Run the video module to detect emotions in real-time.
+
+---
+
+## **Future Enhancements**
+- Add batch processing support in the backend.
+- Optimize frontend for mobile responsiveness.
+- Enable cloud deployment with Docker images.
+
+---
+
+## **License**
+This project is licensed under the MIT License.
+
+---
+
+Let me know if you need further modifications! 😊
