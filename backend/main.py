@@ -34,7 +34,7 @@ def create_model():
     return model
 
 model = create_model()
-weights_path = "./backend/weights/model_weights.weights.h5"
+weights_path = "../backend/weights/model_weights.weights.h5"
 model.load_weights(weights_path)
 
 # Emotion labels
