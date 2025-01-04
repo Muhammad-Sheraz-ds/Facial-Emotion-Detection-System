@@ -1,25 +1,23 @@
-version: "3.8"
-
+version: '3'
 services:
   backend:
-    build:
-      context: ./backend
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./backend:/app
-    container_name: emotion_backend
-
+    image: ai_facial_emotion_prediction_system_backend
+    container_name: backend
+    networks:
+      - ai_network
   frontend:
-    build:
-      context: ./frontend
+    image: ai_facial_emotion_prediction_system_frontend
+    container_name: frontend
     ports:
-      - "3000:80"
-    container_name: emotion_frontend
+      - "80:80"
+    networks:
+      - ai_network
+  video_app:
+    image: ai_facial_emotion_prediction_system_video_app
+    container_name: video_app
+    networks:
+      - ai_network
 
-  video_prediction:
-    build:
-      context: ./video_prediction
-    volumes:
-      - ./video_prediction:/app
-    container_name: emotion_video_prediction
+networks:
+  ai_network:
+    driver: bridge

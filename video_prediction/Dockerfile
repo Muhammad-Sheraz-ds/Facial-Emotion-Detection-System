@@ -1,14 +1,16 @@
-# Use Python as the base image
-FROM python:3.10-slim
+FROM python:3.9-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy video prediction files to container
+# Copy video prediction code and weights
 COPY . /app
 
-# Install dependencies
+# Upgrade pip and install dependencies
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Run the video emotion detection script
+# Expose the video prediction service port (optional)
+EXPOSE 5000
+
+# Command to run the video prediction script
 CMD ["python", "video_emotion_detector.py"]

@@ -1,14 +1,15 @@
-# Use Nginx as the base image
-FROM nginx:alpine
+FROM node:18-slim
 
-# Remove default nginx index.html
-RUN rm -rf /usr/share/nginx/html/*
+WORKDIR /app
 
-# Copy frontend files to Nginx directory
-COPY . /usr/share/nginx/html/
+# Copy frontend files
+COPY . /app
 
-# Expose port 80
-EXPOSE 80
+# Install http-server
+RUN npm install -g http-server
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Expose the frontend port
+EXPOSE 3000
+
+# Command to serve static files
+CMD ["http-server", ".", "-p", "3000"]
