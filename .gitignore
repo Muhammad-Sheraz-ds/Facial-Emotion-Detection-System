@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 # Ignore model weights
 backend/weights/*.weights.h5
+backend/python_packages/*.whl
