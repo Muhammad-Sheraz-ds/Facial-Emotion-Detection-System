@@ -1,22 +1,31 @@
 version: '3'
 services:
   backend:
-    image: ai_facial_emotion_prediction_system_backend
-    container_name: backend
-    networks:
-      - ai_network
-  frontend:
-    image: ai_facial_emotion_prediction_system_frontend
-    container_name: frontend
+    image: muhammadsheraza002/ai_facial_emotion_prediction_system_backend:latest
+    container_name: backend_container
     ports:
-      - "80:80"
+      - "5000:5000"  # Expose backend port
     networks:
       - ai_network
-  video_app:
-    image: ai_facial_emotion_prediction_system_video_app
-    container_name: video_app
+    restart: unless-stopped
+
+  frontend:
+    image: muhammadsheraza002/ai_facial_emotion_prediction_system_frontend:latest
+    container_name: frontend_container
+    ports:
+      - "3000:80"  # Expose frontend port (change port if needed)
     networks:
       - ai_network
+    restart: unless-stopped
+
+  video_prediction:
+    image: muhammadsheraza002/ai_facial_emotion_prediction_system_video_app:latest
+    container_name: video_prediction_container
+    ports:
+      - "8080:8080"  # Expose video prediction port (change port if needed)
+    networks:
+      - ai_network
+    restart: unless-stopped
 
 networks:
   ai_network:

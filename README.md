@@ -161,7 +161,7 @@ docker-compose up video_prediction
 
 ## **Model Weights**
 The pretrained model weights are **not included** in the repository due to size limitations. To use this project:
-1. Download the weights from the provided [Google Drive link](#).
+1. Retrain the weights from the notebook provided.
 2. Place the downloaded `ResNet50_final_weights.weights.h5` file in the `backend/weights/` directory.
 
 ```plaintext
