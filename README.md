@@ -1,6 +1,16 @@
 
 # **EmotionAI: Facial Emotion Detection System**
 
+## **Demo**
+
+Below is a demonstration of the **Facial Emotion Detection System** in action:
+
+<p align="center">
+  <img src="demo/happy_ik.jpeg" alt="Happy Emotion Detection" width="45%"/>
+  <img src="demo/demo.png" alt="Real-Time Emotion Detection" width="45%"/>
+</p>
+
+
 ## **Overview**
 **Facial Emotion Detection System** is an open-source project designed to identify human emotions from images and real-time video streams using advanced Convolutional Neural Networks (CNNs). The project is modular, containerized using Docker, and made accessible for global use.
 
