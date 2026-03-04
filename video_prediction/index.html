@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>EmotionAI - Live Webcam Detection</title>
+	<meta name="description"
+		content="Real-time facial emotion detection using your webcam. AI-powered analysis with ResNet50 deep learning.">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<!-- Navigation -->
+	<nav class="navbar">
+		<div class="nav-brand">
+			<span class="brand-icon">🎭</span>
+			<span class="brand-text">EmotionAI</span>
+		</div>
+		<div class="nav-links">
+			<a href="#" class="nav-link active">🎥 Live Webcam</a>
+		</div>
+	</nav>
+
+	<!-- Main Content -->
+	<main class="container">
+		<div class="hero-section">
+			<h1 class="hero-title">
+				<span class="gradient-text">Live Webcam</span> Emotion Detection
+			</h1>
+			<p class="hero-subtitle">Real-time facial emotion analysis using your camera</p>
+		</div>
+
+		<div class="card glass-card webcam-card">
+			<!-- Webcam Controls -->
+			<div class="webcam-controls">
+				<button id="startBtn" class="control-btn start-btn">
+					<span>▶</span> Start Camera
+				</button>
+				<button id="stopBtn" class="control-btn stop-btn" disabled>
+					<span>⏹</span> Stop Camera
+				</button>
+			</div>
+
+			<!-- Video Feed -->
+			<div class="video-wrapper">
+				<video id="webcamVideo" autoplay playsinline></video>
+				<canvas id="overlayCanvas"></canvas>
+				<div class="video-placeholder" id="videoPlaceholder">
+					<div class="placeholder-icon">🎥</div>
+					<p>Click "Start Camera" to begin</p>
+				</div>
+			</div>
+
+			<!-- Live Result -->
+			<div id="liveResult" class="live-result" style="display: none;">
+				<div class="live-result-inner">
+					<span class="live-dot"></span>
+					<span class="live-label">Live Emotion:</span>
+					<span class="live-emotion" id="liveEmotion">Detecting...</span>
+				</div>
+				<div class="fps-counter" id="fpsCounter">0 FPS</div>
+			</div>
+
+			<!-- Status Messages -->
+			<div id="webcamStatus" class="webcam-status"></div>
+		</div>
+
+		<!-- Emotions Legend -->
+		<div class="emotions-grid">
+			<div class="emotion-chip">😠 Angry</div>
+			<div class="emotion-chip">🤢 Disgust</div>
+			<div class="emotion-chip">😨 Fear</div>
+			<div class="emotion-chip">😊 Happy</div>
+			<div class="emotion-chip">😐 Neutral</div>
+			<div class="emotion-chip">😢 Sad</div>
+			<div class="emotion-chip">😲 Surprise</div>
+		</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<p>Powered by ResNet50V2 Deep Learning Model · Built by <strong>Muhammad Sheraz</strong></p>
+	</footer>
+
+	<script src="scripts.js"></script>
+</body>
+
+</html>

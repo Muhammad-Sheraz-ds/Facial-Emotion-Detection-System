@@ -6,13 +6,14 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dropout, BatchNormalization, Flatten, Dense
 import numpy as np
 import cv2
+import os
 
 app = FastAPI()
 
 # Add CORS Middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins, restrict in production
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -29,16 +30,25 @@ def create_model():
         Dense(64, activation='relu'),
         BatchNormalization(),
         Dropout(0.5),
-        Dense(7, activation='softmax')  # Adjust for 7 emotion classes
+        Dense(7, activation='softmax')
     ])
     return model
 
 model = create_model()
-weights_path = "../backend/weights/model_weights.weights.h5"
-model.load_weights(weights_path)
+# Weights are symlinked to this path in Dockerfile
+weights_path = "/backend/weights/model_weights.weights.h5"
+if os.path.exists(weights_path):
+    model.load_weights(weights_path)
+    print(f"Model loaded with weights from {weights_path}")
+else:
+    print(f"WARNING: Weights not found at {weights_path}")
 
 # Emotion labels
 emotion_labels = ['Angry', 'Disgust', 'Fear', 'Happy', 'Neutral', 'Sad', 'Surprise']
+
+@app.get("/")
+async def root():
+    return {"message": "EmotionAI Backend is Running"}
 
 @app.post("/predict-image/")
 async def predict_image(file: UploadFile = File(...)):
@@ -46,16 +56,19 @@ async def predict_image(file: UploadFile = File(...)):
         contents = await file.read()
         nparr = np.frombuffer(contents, np.uint8)
         image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        if image is None:
+            return JSONResponse(content={"error": "Invalid image"}, status_code=400)
 
-        # Preprocess the image
-        image = cv2.resize(image, (224, 224))
-        image = image.astype("float32") / 255.0
-        image = np.expand_dims(image, axis=0)
-
-        # Predict the emotion
-        predictions = model.predict(image)[0]
+        # Reverted: No face detection, predict on the whole image
+        img_resized = cv2.resize(image, (224, 224))
+        img_normalized = img_resized.astype("float32") / 255.0
+        img_batch = np.expand_dims(img_normalized, axis=0)
+        
+        predictions = model.predict(img_batch, verbose=0)[0]
         emotion = emotion_labels[np.argmax(predictions)]
-
+        
         return JSONResponse(content={"emotion": emotion})
+
     except Exception as e:
-        return JSONResponse(content={"error": str(e)})
+        print(f"Error: {e}")
+        return JSONResponse(content={"error": str(e)}, status_code=500)

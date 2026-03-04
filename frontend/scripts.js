@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("file", file);
 
         try {
-            const response = await fetch("http://127.0.0.1:8000/predict-image/", {
+            // Updated to point to our live backend on Hugging Face
+            const response = await fetch("https://muhammadsheraza002-facial-emotion-detection-backend.hf.space/predict-image/", {
                 method: "POST",
                 body: formData,
             });
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         } catch (error) {
             console.error("Error:", error);
-            resultDiv.innerHTML = `<span class="text-danger">Failed to connect to the backend.</span>`;
+            resultDiv.innerHTML = `<span class="text-danger">Failed to connect to the backend. Please try again.</span>`;
         }
     });
 });
